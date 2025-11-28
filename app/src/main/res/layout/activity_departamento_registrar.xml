@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".registro_departamento">
+    tools:context=".DepartamentoRegistrarActivity">
 
     <EditText
         android:id="@+id/depaNumero"

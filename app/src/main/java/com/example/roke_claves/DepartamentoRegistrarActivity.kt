@@ -13,7 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
-class registro_departamento : AppCompatActivity() {
+class DepartamentoRegistrarActivity : AppCompatActivity() {
     private lateinit var depaNumero: EditText
     private lateinit var depaTorre: EditText
     private lateinit var depaPiso: EditText
@@ -23,7 +23,7 @@ class registro_departamento : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        setContentView(R.layout.activity_registro_departamento)
+        setContentView(R.layout.activity_departamento_registrar)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
