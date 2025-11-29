@@ -3,8 +3,10 @@ package com.example.roke_claves
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -18,9 +20,15 @@ class DepartamentoListarActivity : AppCompatActivity() {
     private val listaDepartamentos = mutableListOf<String>()
     private val listaIds = mutableListOf<Int>()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departamento_listar)
+        val btnRegistrarDepartamento: Button = findViewById(R.id.depaRegistrarBoton)
+
+
 
         listView = findViewById(R.id.listViewDepartamentos)
 
@@ -32,6 +40,13 @@ class DepartamentoListarActivity : AppCompatActivity() {
             intent.putExtra("id_depa", id)
             startActivity(intent)
         }
+        // Set the OnClickListener for the button
+        btnRegistrarDepartamento.setOnClickListener {
+            // Create an Intent to start DepartamentoRegistrarActivity. [2, 5]
+            val intent = Intent(this, DepartamentoRegistrarActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun cargarDepartamentos() {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import android.widget.SimpleAdapter
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
@@ -14,10 +15,11 @@ class EventoListarActivity : AppCompatActivity() {
     private lateinit var listaEventos: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evento_listar)
 
-        listaEventos = findViewById(R.id.listaEventos)
+        listaEventos = findViewById(R.id.listViewEventos)
 
         cargarEventos()
     }
