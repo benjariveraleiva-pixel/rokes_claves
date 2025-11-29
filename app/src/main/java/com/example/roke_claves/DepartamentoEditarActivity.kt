@@ -17,6 +17,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
     private lateinit var depaTorre: EditText
     private lateinit var depaPiso: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var session: SessionManager
 
     private var depaId: Int = -1
 
@@ -25,6 +26,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departamento_editar)
 
+        session = SessionManager(this)
         depaNumero = findViewById(R.id.depaNumeroEdit)
         depaTorre = findViewById(R.id.depaTorreEdit)
         depaPiso = findViewById(R.id.depaPisoEdit)
@@ -65,8 +67,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {
-                val prefs = getSharedPreferences("session", MODE_PRIVATE)
-                val token = prefs.getString("token", "") ?: ""
+                val token = session.getToken() ?: ""
                 return mutableMapOf("Authorization" to "Token $token")
             }
         }
@@ -99,8 +100,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {
-                val prefs = getSharedPreferences("session", MODE_PRIVATE)
-                val token = prefs.getString("token", "") ?: ""
+                val token = session.getToken() ?: ""
                 return mutableMapOf(
                     "Authorization" to "Token $token",
                     "Content-Type" to "application/json"

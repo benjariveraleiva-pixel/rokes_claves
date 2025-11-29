@@ -13,12 +13,14 @@ import com.android.volley.toolbox.Volley
 class EventoListarActivity : AppCompatActivity() {
 
     private lateinit var listaEventos: ListView
+    private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evento_listar)
 
+        session = SessionManager(this)
         listaEventos = findViewById(R.id.listViewEventos)
 
         cargarEventos()
@@ -27,7 +29,7 @@ class EventoListarActivity : AppCompatActivity() {
     private fun cargarEventos() {
         val url = "http://100.103.19.56/api/eventos/"
 
-        val request = JsonArrayRequest(
+        val request = object : JsonArrayRequest(
             Request.Method.GET,
             url,
             null,
@@ -39,11 +41,8 @@ class EventoListarActivity : AppCompatActivity() {
                     val ev = response.getJSONObject(i)
 
                     val map = mapOf(
-                        "line1" to "Tipo: ${ev.getString("tipo_evento")}",
-                        "line2" to "Fecha: ${ev.getString("fecha_hora")}",
-                        "line3" to "Resultado: ${ev.getString("resultado")}",
-                        "line4" to "Usuario: ${ev.getInt("usuario")}",
-                        "line5" to "Sensor: ${ev.getInt("sensor")}"
+                        "line1" to "Tipo: ${ev.getString("tipo_evento")} | Resultado: ${ev.getString("resultado")}",
+                        "line2" to "Fecha: ${ev.getString("fecha_hora")}"
                     )
 
                     lista.add(map)
@@ -66,7 +65,15 @@ class EventoListarActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = session.getToken() ?: ""
+                return mutableMapOf(
+                    "Authorization" to "Token $token",
+                    "Content-Type" to "application/json"
+                )
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }

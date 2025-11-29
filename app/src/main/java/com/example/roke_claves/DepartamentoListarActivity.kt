@@ -3,9 +3,9 @@ package com.example.roke_claves
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
@@ -15,17 +15,18 @@ import org.json.JSONArray
 class DepartamentoListarActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
+    private lateinit var btnRegistrar: Button
     private val listaDepartamentos = mutableListOf<String>()
     private val listaIds = mutableListOf<Int>()
     private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departamento_listar)
 
         session = SessionManager(this)
         listView = findViewById(R.id.listViewDepartamentos)
+        btnRegistrar = findViewById(R.id.depaRegistrarBoton)
 
         cargarDepartamentos()
 
@@ -34,6 +35,10 @@ class DepartamentoListarActivity : AppCompatActivity() {
             val intent = Intent(this, DepartamentoEditarActivity::class.java)
             intent.putExtra("id_depa", id)
             startActivity(intent)
+        }
+
+        btnRegistrar.setOnClickListener {
+            startActivity(Intent(this, DepartamentoRegistrarActivity::class.java))
         }
     }
 
