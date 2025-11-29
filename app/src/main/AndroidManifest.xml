@@ -15,6 +15,30 @@
         android:theme="@style/Theme.Roke_claves"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UserDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LogoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SensorEditarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SensorRegistrarActivity"
+            android:exported="false" />
+        <activity
             android:name=".SensorListarActivity"
             android:exported="false" />
         <activity
@@ -22,12 +46,8 @@
             android:exported="false" />
         <activity
             android:name=".AdminDashboardActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".EventoListarActivity"

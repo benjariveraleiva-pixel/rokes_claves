@@ -1,20 +1,68 @@
 package com.example.roke_claves
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.google.android.material.textfield.TextInputEditText
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val inputUsername = findViewById<TextInputEditText>(R.id.inputUsername)
+        val inputPassword = findViewById<TextInputEditText>(R.id.inputPassword)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
+        val errorText = findViewById<TextView>(R.id.errorText)
+
+        val queue = Volley.newRequestQueue(this)
+        val session = SessionManager(this)
+        val url = "http://100.103.19.56/api/login/"
+
+        btnLogin.setOnClickListener {
+
+            val body = JSONObject().apply {
+                put("username", inputUsername.text.toString())
+                put("password", inputPassword.text.toString())
+            }
+
+            val request = object : JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body,
+                { response ->
+                    val token = response.getString("token")
+                    val tipoUsuario = response.getInt("tipo_usuario")
+
+                    session.saveSession(token, tipoUsuario)
+
+                    if (tipoUsuario == 0) {
+                        startActivity(Intent(this, AdminDashboardActivity::class.java))
+                    } else {
+                        startActivity(Intent(this, UserDashboardActivity::class.java))
+                    }
+
+                    finish()
+                },
+                { error ->
+                    errorText.text = "Credenciales inválidas (╯°□°）╯︵ ┻━┻"
+                }
+            ) {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Content-Type"] = "application/json"
+                    return headers
+                }
+            }
+
+            queue.add(request)
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.roke_claves
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -20,7 +19,6 @@ class DepartamentoEditarActivity : AppCompatActivity() {
     private lateinit var btnGuardar: Button
 
     private var depaId: Int = -1
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -49,7 +47,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
     private fun cargarDatos() {
         val url = "http://100.103.19.56/api/departamentos/$depaId/"
 
-        val request = JsonObjectRequest(
+        val request = object : JsonObjectRequest(
             Request.Method.GET,
             url,
             null,
@@ -65,7 +63,13 @@ class DepartamentoEditarActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val prefs = getSharedPreferences("session", MODE_PRIVATE)
+                val token = prefs.getString("token", "") ?: ""
+                return mutableMapOf("Authorization" to "Token $token")
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }
@@ -79,7 +83,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
             put("piso", depaPiso.text.toString().trim())
         }
 
-        val request = JsonObjectRequest(
+        val request = object : JsonObjectRequest(
             Request.Method.PUT,
             url,
             body,
@@ -93,7 +97,16 @@ class DepartamentoEditarActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val prefs = getSharedPreferences("session", MODE_PRIVATE)
+                val token = prefs.getString("token", "") ?: ""
+                return mutableMapOf(
+                    "Authorization" to "Token $token",
+                    "Content-Type" to "application/json"
+                )
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }

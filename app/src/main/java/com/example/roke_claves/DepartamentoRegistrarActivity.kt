@@ -14,15 +14,16 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
 class DepartamentoRegistrarActivity : AppCompatActivity() {
+
     private lateinit var depaNumero: EditText
     private lateinit var depaTorre: EditText
     private lateinit var depaPiso: EditText
     private lateinit var depaBoton: Button
+    private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         setContentView(R.layout.activity_departamento_registrar)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -31,14 +32,14 @@ class DepartamentoRegistrarActivity : AppCompatActivity() {
             insets
         }
 
+        session = SessionManager(this)
+
         depaNumero = findViewById(R.id.depaNumero)
         depaTorre = findViewById(R.id.depaTorre)
         depaPiso = findViewById(R.id.depaPiso)
         depaBoton = findViewById(R.id.depaBoton)
 
-        depaBoton.setOnClickListener {
-            registrarDepartamento()
-        }
+        depaBoton.setOnClickListener { registrarDepartamento() }
     }
 
     private fun registrarDepartamento() {
@@ -54,11 +55,11 @@ class DepartamentoRegistrarActivity : AppCompatActivity() {
             put("piso", piso)
         }
 
-        val request = JsonObjectRequest(
+        val request = object : JsonObjectRequest(
             Request.Method.POST,
             url,
             jsonBody,
-            { response ->
+            {
                 Toast.makeText(this, "Departamento registrado correctamente", Toast.LENGTH_LONG).show()
             },
             { error ->
@@ -68,9 +69,16 @@ class DepartamentoRegistrarActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = session.getToken() ?: ""
+                return mutableMapOf(
+                    "Authorization" to "Token $token",
+                    "Content-Type" to "application/json"
+                )
+            }
+        }
 
-        // Ejecutar request con Volley
         Volley.newRequestQueue(this).add(request)
     }
 }

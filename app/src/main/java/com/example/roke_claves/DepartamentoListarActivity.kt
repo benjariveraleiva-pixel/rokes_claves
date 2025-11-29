@@ -3,33 +3,28 @@ package com.example.roke_claves
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
-import org.json.JSONException
 
 class DepartamentoListarActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
     private val listaDepartamentos = mutableListOf<String>()
     private val listaIds = mutableListOf<Int>()
-
-
+    private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departamento_listar)
-        val btnRegistrarDepartamento: Button = findViewById(R.id.depaRegistrarBoton)
 
-
-
+        session = SessionManager(this)
         listView = findViewById(R.id.listViewDepartamentos)
 
         cargarDepartamentos()
@@ -40,37 +35,34 @@ class DepartamentoListarActivity : AppCompatActivity() {
             intent.putExtra("id_depa", id)
             startActivity(intent)
         }
-        // Set the OnClickListener for the button
-        btnRegistrarDepartamento.setOnClickListener {
-            // Create an Intent to start DepartamentoRegistrarActivity. [2, 5]
-            val intent = Intent(this, DepartamentoRegistrarActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     private fun cargarDepartamentos() {
         val url = "http://100.103.19.56/api/departamentos/"
 
-        val request = StringRequest(
+        val request = object: JsonArrayRequest(
             Request.Method.GET,
             url,
+            null,
             { response ->
-                try {
-                    val jsonArray = JSONArray(response)
-                    procesarLista(jsonArray)
-                } catch (e: JSONException) {
-                    Toast.makeText(this, "Error parsing JSON: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+                procesarLista(response)
             },
             { error ->
                 Toast.makeText(
                     this,
-                    "Error de red: ${error.toString()}",
+                    "Error cargando departamentos: ${error.networkResponse?.statusCode}",
                     Toast.LENGTH_LONG
                 ).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = session.getToken() ?: ""
+                return mutableMapOf(
+                    "Authorization" to "Token $token",
+                    "Content-Type" to "application/json"
+                )
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }
