@@ -2,6 +2,8 @@ package com.example.roke_claves
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
@@ -20,6 +22,9 @@ class DepartamentoListarActivity : AppCompatActivity() {
     private val listaIds = mutableListOf<Int>()
     private lateinit var session: SessionManager
 
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var refreshRunnable: Runnable
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departamento_listar)
@@ -27,8 +32,6 @@ class DepartamentoListarActivity : AppCompatActivity() {
         session = SessionManager(this)
         listView = findViewById(R.id.listViewDepartamentos)
         btnRegistrar = findViewById(R.id.depaRegistrarBoton)
-
-        cargarDepartamentos()
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val id = listaIds[position]
@@ -40,6 +43,21 @@ class DepartamentoListarActivity : AppCompatActivity() {
         btnRegistrar.setOnClickListener {
             startActivity(Intent(this, DepartamentoRegistrarActivity::class.java))
         }
+
+        refreshRunnable = Runnable {
+            cargarDepartamentos()
+            handler.postDelayed(refreshRunnable, 1000)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handler.post(refreshRunnable)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(refreshRunnable)
     }
 
     private fun cargarDepartamentos() {
@@ -53,11 +71,10 @@ class DepartamentoListarActivity : AppCompatActivity() {
                 procesarLista(response)
             },
             { error ->
-                Toast.makeText(
-                    this,
-                    "Error cargando departamentos: ${error.networkResponse?.statusCode}",
-                    Toast.LENGTH_LONG
-                ).show()
+                // Don't show toast on auto-refresh errors to avoid spamming the user
+                if (!isFinishing) {
+                    println("Error cargando departamentos: ${error.message}")
+                }
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {

@@ -1,54 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
-    <EditText
-        android:id="@+id/sensorCodigo"
-        android:hint="Código del sensor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Spinner
-        android:id="@+id/sensorEstado"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        android:spacing="12dp">
 
-    <Spinner
-        android:id="@+id/sensorTipo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        <!-- Código del sensor -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código del sensor" />
 
-    <EditText
-        android:id="@+id/sensorFechaAlta"
-        android:hint="Fecha alta (YYYY-MM-DD)"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        <EditText
+            android:id="@+id/sensorCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
 
-    <EditText
-        android:id="@+id/sensorFechaBaja"
-        android:hint="Fecha baja (opcional)"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        <!-- Estado -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado" />
 
-    <EditText
-        android:id="@+id/sensorDepartamento"
-        android:hint="Departamento ID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        <Spinner
+            android:id="@+id/sensorEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/sensorGuardarBtn"
-        android:text="Registrar Sensor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
+        <!-- Tipo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo" />
 
-</LinearLayout>
+        <Spinner
+            android:id="@+id/sensorTipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Fecha alta -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de alta" />
+
+        <EditText
+            android:id="@+id/sensorFechaAlta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date" />
+
+        <!-- Departamento -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Departamento" />
+
+        <Spinner
+            android:id="@+id/sensorDepartamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <!-- Botón Guardar -->
+        <Button
+            android:id="@+id/sensorGuardarBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar sensor" />
+
+    </LinearLayout>
+</ScrollView>

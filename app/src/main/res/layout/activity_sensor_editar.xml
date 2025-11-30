@@ -23,9 +23,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp" />
 
+    <!-- DATE PICKER FIELDS -->
     <EditText
         android:id="@+id/sensorFechaAltaEdit"
         android:hint="Fecha alta"
+        android:focusable="false"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp" />
@@ -33,22 +36,40 @@
     <EditText
         android:id="@+id/sensorFechaBajaEdit"
         android:hint="Fecha baja"
+        android:focusable="false"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp" />
 
-    <EditText
+    <!-- SPINNER FOR DEPARTAMENTOS -->
+    <Spinner
         android:id="@+id/sensorDepartamentoEdit"
-        android:hint="Departamento ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp" />
 
-    <Button
-        android:id="@+id/sensorGuardarCambiosBtn"
-        android:text="Guardar Cambios"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sensorGuardarCambiosBtn"
+            android:text="Guardar Cambios"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/sensorEliminarBtn"
+            android:text="Eliminar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@android:color/holo_red_light" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="20dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".DepartamentoEditarActivity">
 
     <EditText
         android:id="@+id/depaNumeroEdit"
-        android:hint="Número"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Número" />
 
     <EditText
         android:id="@+id/depaTorreEdit"
-        android:hint="Torre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp"
+        android:hint="Torre" />
 
     <EditText
         android:id="@+id/depaPisoEdit"
-        android:hint="Piso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp"
+        android:hint="Piso" />
 
-    <Button
-        android:id="@+id/btnGuardarEdit"
-        android:text="Guardar cambios"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnGuardarEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Guardar Cambios" />
+
+        <Button
+            android:id="@+id/btnEliminarDepa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:text="Eliminar" />
+    </LinearLayout>
 
 </LinearLayout>
