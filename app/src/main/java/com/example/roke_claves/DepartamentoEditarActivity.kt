@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
@@ -17,6 +18,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
     private lateinit var depaTorre: EditText
     private lateinit var depaPiso: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnEliminar: Button
     private lateinit var session: SessionManager
 
     private var depaId: Int = -1
@@ -31,18 +33,24 @@ class DepartamentoEditarActivity : AppCompatActivity() {
         depaTorre = findViewById(R.id.depaTorreEdit)
         depaPiso = findViewById(R.id.depaPisoEdit)
         btnGuardar = findViewById(R.id.btnGuardarEdit)
+        btnEliminar = findViewById(R.id.btnEliminarDepa)
 
         depaId = intent.getIntExtra("id_depa", -1)
 
         if (depaId == -1) {
             Toast.makeText(this, "Error: ID inválido (ಠ_ಠ)", Toast.LENGTH_LONG).show()
             finish()
+            return
         }
 
         cargarDatos()
 
         btnGuardar.setOnClickListener {
             actualizarDepartamento()
+        }
+
+        btnEliminar.setOnClickListener {
+            eliminarDepartamento()
         }
     }
 
@@ -61,7 +69,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
             { error ->
                 Toast.makeText(
                     this,
-                    "Error cargando departamento: ${error.networkResponse?.statusCode}",
+                    "Error cargando departamento: ${error.message}",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -90,11 +98,12 @@ class DepartamentoEditarActivity : AppCompatActivity() {
             body,
             {
                 Toast.makeText(this, "Departamento actualizado (ᐛ)", Toast.LENGTH_LONG).show()
+                finish()
             },
             { error ->
                 Toast.makeText(
                     this,
-                    "Error actualizando: ${error.networkResponse?.statusCode}",
+                    "Error actualizando: ${error.message}",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -105,6 +114,33 @@ class DepartamentoEditarActivity : AppCompatActivity() {
                     "Authorization" to "Token $token",
                     "Content-Type" to "application/json"
                 )
+            }
+        }
+
+        Volley.newRequestQueue(this).add(request)
+    }
+
+    private fun eliminarDepartamento() {
+        val url = "http://100.103.19.56/api/departamentos/$depaId/"
+
+        val request = object : StringRequest(
+            Method.DELETE,
+            url,
+            {
+                Toast.makeText(this, "Departamento eliminado correctamente", Toast.LENGTH_LONG).show()
+                finish()
+            },
+            { error ->
+                Toast.makeText(
+                    this,
+                    "Error al eliminar: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = session.getToken() ?: ""
+                return mutableMapOf("Authorization" to "Token $token")
             }
         }
 
