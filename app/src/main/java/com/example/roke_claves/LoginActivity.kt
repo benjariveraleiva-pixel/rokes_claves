@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -16,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        enableEdgeToEdge()
 
         val inputUsername = findViewById<TextInputEditText>(R.id.inputUsername)
         val inputPassword = findViewById<TextInputEditText>(R.id.inputPassword)
@@ -24,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
         val queue = Volley.newRequestQueue(this)
         val session = SessionManager(this)
-        val url = "http://100.103.19.56/api/login/"
+        val url = "http://54.159.204.1/api/login/"
 
         btnLogin.setOnClickListener {
 

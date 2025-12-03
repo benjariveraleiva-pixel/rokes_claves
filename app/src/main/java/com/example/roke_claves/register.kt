@@ -58,7 +58,7 @@ class register : AppCompatActivity() {
             return
         }
 
-        val url = "http://100.103.19.56/api/users/register/"
+        val url = "http://54.159.204.1/api/users/register/"
 
         val jsonBody = JSONObject().apply {
             put("name", name)

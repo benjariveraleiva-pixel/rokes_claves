@@ -28,7 +28,7 @@ class SensorEditarActivity : AppCompatActivity() {
     private var sensorId: Int = -1
 
     private val departamentos = mutableListOf<DepartamentoDisplay>()
-    private var departamentoCargadoId: Int? = null   // we store this until spinner loads
+    private var departamentoCargadoId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,7 +137,7 @@ class SensorEditarActivity : AppCompatActivity() {
     }
 
     private fun cargarDatos() {
-        val url = "http://100.103.19.56/api/sensores/$sensorId/"
+        val url = "http://54.159.204.1/api/sensores/$sensorId/"
 
         val req = object : JsonObjectRequest(
             Request.Method.GET,

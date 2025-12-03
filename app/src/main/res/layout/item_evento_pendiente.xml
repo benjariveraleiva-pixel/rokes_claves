@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="false"
+    android:focusable="false"
+    android:descendantFocusability="blocksDescendants">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:layout_marginBottom="4dp"
+android:clickable="false"
+android:focusable="false">
+
+<TextView
+    android:id="@+id/textViewEstado"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="PENDIENTE"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="2dp"
+    android:background="@color/orange"
+    android:textColor="@color/white"
+    android:clickable="false"
+    android:focusable="false" />
+
+<TextView
+    android:id="@+id/textViewId"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:textSize="10sp"
+    android:textColor="@color/dark_gray"
+    android:gravity="end"
+    android:text="ID: 0"
+    android:clickable="false"
+    android:focusable="false" />
+
+</LinearLayout>
+
+<TextView
+android:id="@+id/textViewSensor"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:textSize="16sp"
+android:textStyle="bold"
+android:textColor="@color/black"
+android:text="Sensor: "
+android:clickable="false"
+android:focusable="false" />
+
+<TextView
+android:id="@+id/textViewUsuario"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:textSize="14sp"
+android:textColor="@color/gray"
+android:text="Usuario: "
+android:layout_marginTop="2dp"
+android:clickable="false"
+android:focusable="false" />
+
+<TextView
+android:id="@+id/textViewFecha"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:textSize="12sp"
+android:textColor="@color/dark_gray"
+android:text="Fecha: "
+android:layout_marginTop="4dp"
+android:clickable="false"
+android:focusable="false" />
+
+<View
+android:layout_width="match_parent"
+android:layout_height="1dp"
+android:background="@color/light_gray"
+android:layout_marginTop="12dp" />
+
+    </LinearLayout>

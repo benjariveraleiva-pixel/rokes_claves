@@ -17,6 +17,8 @@ class AdminDashboardActivity : AppCompatActivity() {
         val btnUsuarios = findViewById<Button>(R.id.btnUsuarios)
         val btnEventos = findViewById<Button>(R.id.btnEventos)
         val btnSensores = findViewById<Button>(R.id.btnSensores)
+        val btnEventosPendientes = findViewById<Button>(R.id.btnEventosPendientes)
+
 
         btnDepartamentos.setOnClickListener {
             startActivity(Intent(this, DepartamentoListarActivity::class.java))
@@ -28,6 +30,9 @@ class AdminDashboardActivity : AppCompatActivity() {
 
         btnEventos.setOnClickListener {
             startActivity(Intent(this, EventoListarActivity::class.java))
+        }
+        btnEventosPendientes.setOnClickListener {
+            startActivity(Intent(this, EventoPendienteListarActivity::class.java))
         }
 
         btnSensores.setOnClickListener {

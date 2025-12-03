@@ -47,7 +47,7 @@ class DepartamentoRegistrarActivity : AppCompatActivity() {
         val numero = depaNumero.text.toString().trim()
         val piso = depaPiso.text.toString().trim()
 
-        val url = "http://100.103.19.56/api/departamentos/"
+        val url = "http://54.159.204.1/api/departamentos/"
 
         val jsonBody = JSONObject().apply {
             put("numero", numero)

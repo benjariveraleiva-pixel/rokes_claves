@@ -84,7 +84,7 @@ class DepartamentoEditarActivity : AppCompatActivity() {
     }
 
     private fun actualizarDepartamento() {
-        val url = "http://100.103.19.56/api/departamentos/$depaId/"
+        val url = "http://54.159.204.1/api/departamentos/$depaId/"
 
         val body = JSONObject().apply {
             put("numero", depaNumero.text.toString().trim())

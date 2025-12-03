@@ -59,7 +59,7 @@ class SensorListarActivity : AppCompatActivity() {
     }
 
     private fun cargarSensores() {
-        val url = "http://100.103.19.56/api/sensores/"
+        val url = "http://54.159.204.1/api/sensores/"
 
         val request = object: JsonArrayRequest(
             Request.Method.GET,

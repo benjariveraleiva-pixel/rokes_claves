@@ -27,7 +27,7 @@ class EventoListarActivity : AppCompatActivity() {
     }
 
     private fun cargarEventos() {
-        val url = "http://100.103.19.56/api/eventos/"
+        val url = "http://54.159.204.1/api/eventos/"
 
         val request = object : JsonArrayRequest(
             Request.Method.GET,

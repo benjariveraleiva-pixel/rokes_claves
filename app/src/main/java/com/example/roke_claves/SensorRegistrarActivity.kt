@@ -56,7 +56,7 @@ class SensorRegistrarActivity : AppCompatActivity() {
     }
 
     private fun cargarDepartamentos() {
-        val url = "http://100.103.19.56/api/departamentos/"
+        val url = "http://54.159.204.1/api/departamentos/"
 
         val req = object : JsonArrayRequest(
             Request.Method.GET, url, null,

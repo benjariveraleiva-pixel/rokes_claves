@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/btnEventos"
-        android:text="Eventos"
+        android:text="Historial de acceso"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_rowWeight="1"
@@ -38,6 +38,15 @@
     <Button
         android:id="@+id/btnSensores"
         android:text="Sensores"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:background="@drawable/square_button_bg" />
+
+    <Button
+        android:id="@+id/btnEventosPendientes"
+        android:text="Peticiones de acceso"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_rowWeight="1"
