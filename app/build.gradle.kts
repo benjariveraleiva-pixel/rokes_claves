@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+
+    implementation("com.airbnb.android:lottie:6.6.6")
     implementation(libs.material)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
